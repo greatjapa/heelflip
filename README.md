@@ -48,6 +48,7 @@ IFieldAgg genreAgg = jsonAgg.getFieldAgg("genre");
 genreAgg.count();          // 4
 genreAgg.cardinality();    // 2
 genreAgg.count("novel");   // 3
+genreAgg.count("poem");    // 1
 ```
 ### Group By Aggregations
 
