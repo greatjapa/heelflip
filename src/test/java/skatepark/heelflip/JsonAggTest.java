@@ -45,8 +45,8 @@ public class JsonAggTest {
             InputStream stream = getClass().getClassLoader().getResourceAsStream(SAMPLE_00);
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(10, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(90, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(10, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(90, jsonAgg.getGroupByAggCount());
 
             Set<String> names = jsonAgg.fieldNames();
             Assert.assertTrue(names.contains("a"));
@@ -69,8 +69,8 @@ public class JsonAggTest {
             InputStream stream = getClass().getClassLoader().getResourceAsStream(SAMPLE_00);
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(10, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(90, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(10, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(90, jsonAgg.getGroupByAggCount());
 
             Assert.assertEquals(0, jsonAgg.getFieldAgg("a").getMin().intValue());
             Assert.assertEquals(0, jsonAgg.getFieldAgg("a").getMax().intValue());
@@ -132,8 +132,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(10, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(90, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(10, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(90, jsonAgg.getGroupByAggCount());
 
             Map<String, String> expected = new HashMap<>();
             expected.put("a", "0");
@@ -177,8 +177,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             Set<String> names = jsonAgg.fieldNames();
             Assert.assertTrue(names.contains("a"));
@@ -195,8 +195,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMin());
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMax());
@@ -219,8 +219,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             IGroupByAgg groupByAgg = jsonAgg.getGroupBy("b.x", "a");
 
@@ -270,8 +270,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(5, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(20, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(5, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(20, jsonAgg.getGroupByAggCount());
 
             Set<String> names = jsonAgg.fieldNames();
             Assert.assertTrue(names.contains("a"));
@@ -290,8 +290,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(5, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(20, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(5, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(20, jsonAgg.getGroupByAggCount());
 
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMin());
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMax());
@@ -322,8 +322,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(5, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(20, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(5, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(20, jsonAgg.getGroupByAggCount());
 
             IGroupByAgg groupByAgg = jsonAgg.getGroupBy("b_0", "a");
             IFieldAgg fieldAgg = groupByAgg.groupBy("true");
@@ -351,8 +351,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             Set<String> names = jsonAgg.fieldNames();
             Assert.assertTrue(names.contains("a"));
@@ -369,8 +369,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMin());
             Assert.assertNull(jsonAgg.getFieldAgg("a").getMax());
@@ -393,8 +393,8 @@ public class JsonAggTest {
 
             jsonAgg.loadNDJSON(stream);
 
-            Assert.assertEquals(3, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(6, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(3, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(6, jsonAgg.getGroupByAggCount());
 
             IGroupByAgg groupByAgg = jsonAgg.getGroupBy("b.x", "a");
             IFieldAgg fieldAgg = groupByAgg.groupBy("true");
@@ -423,8 +423,8 @@ public class JsonAggTest {
             jsonAgg.loadNDJSON(zipStream);
             System.out.println("zips takes (seconds): " + (System.currentTimeMillis() - time) / 1000);
 
-            Assert.assertEquals(6, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(30, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(6, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(30, jsonAgg.getGroupByAggCount());
 
             IFieldAgg popAgg = jsonAgg.getFieldAgg("pop");
             Assert.assertEquals(29467, popAgg.count());
@@ -457,8 +457,8 @@ public class JsonAggTest {
             long time = System.currentTimeMillis();
             jsonAgg.loadNDJSON(zipStream);
             System.out.println("stocks takes (seconds): " + (System.currentTimeMillis() - time) / 1000);
-            Assert.assertEquals(69, jsonAgg.numberOfFieldAgg());
-            Assert.assertEquals(4692, jsonAgg.numberOfGroupByAgg());
+            Assert.assertEquals(69, jsonAgg.getFieldAggCount());
+            Assert.assertEquals(4692, jsonAgg.getGroupByAggCount());
         }
     }
 

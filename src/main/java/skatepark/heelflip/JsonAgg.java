@@ -36,6 +36,8 @@ public class JsonAgg {
 
     private Jedis jedis;
 
+    private JsonParser parser;
+
     public JsonAgg() {
         this(null);
     }
@@ -44,6 +46,7 @@ public class JsonAgg {
         this.fieldAggMap = new HashMap<>();
         this.groupByAggMap = new HashMap<>();
         this.jedis = jedis;
+        this.parser = new JsonParser();
     }
 
     /**
@@ -57,16 +60,26 @@ public class JsonAgg {
     }
 
     /**
+     * Add JSON {@link String} to the aggregation engine.
+     *
+     * @param json JSON data.
+     */
+    public void add(String json) {
+        Objects.requireNonNull(json, "json should not be null.");
+        add(parser.parse(json).getAsJsonObject());
+    }
+
+    /**
      * @return total of {@link IFieldAgg} objects.
      */
-    public int numberOfFieldAgg() {
+    public int getFieldAggCount() {
         return fieldAggMap.size();
     }
 
     /**
      * @return total of {@link IGroupByAgg} objects.
      */
-    public int numberOfGroupByAgg() {
+    public int getGroupByAggCount() {
         return groupByAggMap.values().stream()
                 .mapToInt(m -> m.size())
                 .sum();
