@@ -3,7 +3,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.greatjapa/heelflip/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.greatjapa/heelflip)
 [![codecov](https://codecov.io/gh/greatjapa/heelflip/branch/master/graph/badge.svg)](https://codecov.io/gh/greatjapa/heelflip)
 
-**Heelflip** is an JSON aggregator library for Java. It's well-known that aggregation processes are useful but it's very expensive to calculate. Instead of calculate aggregations over JSON files into a relational database or even NoSQL database, we provider a library that does this task for us. Heelflip works **in-memory** or using **Redis** to aggregate values.
+**Heelflip** is an JSON aggregator library for Java. It's well-known that aggregation processes are useful but very expensive to calculate. Instead of calculating aggregations over JSON files into a relational database or even NoSQL database, we provide a library that does this task for us. Heelflip works **in-memory** or using **Redis** to aggregate values.
 
 ## Maven
 Heelflip is available at the Central Maven Repository:
@@ -17,14 +17,14 @@ Heelflip is available at the Central Maven Repository:
 ```
 
 ## How to use
-Considering the following bookstore JSON sample:
+Consider the following bookstore JSON sample:
 ```javascript
 {"name":"The Odyssey",  "author":"Homer",          "genre":"poem",  "inStock":true, "price":12.50}
 {"name":"The Godfather","author":"Mario Puzo",     "genre":"novel", "inStock":true, "price":6.49 }
 {"name":"Moby-Dick",    "author":"Herman Melville","genre":"novel", "inStock":false,"price":3.07 }
 {"name":"Emma",         "author":"Austen",         "genre":"novel", "inStock":true, "price":30.50}
 ```
-We can read then as follows:
+We can read it as follows:
 ```java
 try(InputStream stream = new FileInputStream("bookstore.json")){
     JsonAgg jsonAgg = new JsonAgg();
@@ -35,7 +35,7 @@ try(InputStream stream = new FileInputStream("bookstore.json")){
 ```
 ### Global Aggregations
 
-Once you have a JsonAgg object we can get global aggregations (min, max and sum) doing as follows:
+Once you have a JsonAgg object you can get global aggregations (min, max and sum) as follows:
 ```java
 IFieldAgg priceAgg = jsonAgg.getFieldAgg("price");
 popAgg.getMin(); // 3.07
@@ -51,7 +51,7 @@ genreAgg.count("novel");   // 3
 ```
 ### Group By Aggregations
 
-We also can get group by aggregations doing as follows:
+We can also get group aggregations as follows:
 ```java
 IGroupByAgg groupByAgg = jsonAgg.getGroupBy("price", "inStock");
 IFieldAgg priceBystockAgg = groupByAgg.groupBy("true");
@@ -70,11 +70,11 @@ namesInStockAgg.distinctValues();
 //"Emma"
 ```
 ### Dump Report
-You can also generate a report with all aggregations accumulated. You just need to do:
+You can also generate a report with all accumulated aggregations. You just need to do:
 ```java
 jsonAgg.dumpReport("report", true);
 ```
-This code snippet will create a directory in the following structure:
+This code snippet will create a directory with the following structure:
 ```
 report
 │   __missingGroupBy.json
@@ -96,7 +96,7 @@ Each JSON field has its own directory, for instance, `name`, `author` etc. This 
 Finally, the root directory contains a file `__missingGroupBy.json` with a list of missing group by combination.
 
 ### How to scale?
-Creating `JsonAgg` with default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise `OutOfMemoryError`. To avoid this kind of error, we provide an alternative to process aggregations in Redis instead of in-memory. See code below:
+Creating `JsonAgg` with the default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise a `OutOfMemoryError`. To avoid this, we provide an alternative to process aggregations in Redis instead of in-memory. See code below:
 
 ```java
 JedisPool pool = new JedisPool(new JedisPoolConfig(), "localhost");
@@ -107,7 +107,7 @@ try (Jedis jedis = pool.getResource()) {
 ```
 
 ### How aggregation works over non-flat JSON
-There is no problem if you have JSONs with array or nested objects. What Heelflip does is calculate aggregations over fields and their values. But the Heelflip API is based on field names and, for that, we need to rename JSON fields when arrays or objects appears.
+There is no problem if you have JSONs with arrays or nested objects. What Heelflip does is to calculate aggregations over fields and their values. But the Heelflip API is based on field names and so, we need to rename JSON fields when arrays or objects appear.
 
 For instance, the following JSON entry:
 ```javascript
@@ -117,7 +117,7 @@ will be read as:
 ```javascript
 {"name":"Steve", "age":30, "address.street":"8nd Street", "address.city":"New York"}}
 ```
-To retrieve the information about the field "city" we need to concatenate the field names as showed below:
+To retrieve the information about the field "city" we need to concatenate the field names as shown below:
 ```java
 FieldAgg cityAgg = agg.getFieldAgg("address.city");
 cityAgg.count();
@@ -132,4 +132,4 @@ will be read as:
 { "city" : "SPRINGFIELD", "loc_0" : -72.577769, "loc_1": 42.128848, "pop" : 22115}
 ```
 
-**NOTE**: The examples above are used only to ilustrate how we rename field names for objects and arrays to generate unique names at aggregation time. It is important to understand that we do not flatten the JSON.
+**NOTE**: The examples above are only used to ilustrate how to rename field names for objects and arrays to generate unique names at aggregation time. It is important to understand that we do not flatten the JSON.
