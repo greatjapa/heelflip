@@ -3,7 +3,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.greatjapa/heelflip/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.greatjapa/heelflip)
 [![codecov](https://codecov.io/gh/greatjapa/heelflip/branch/master/graph/badge.svg)](https://codecov.io/gh/greatjapa/heelflip)
 
-**Heelflip** is an JSON aggregator library for Java. It's well-known that aggregation processes are useful but very expensive to calculate. Instead of calculating aggregations over JSON files into a relational database or even NoSQL database, we provide a library that does this task for us. Heelflip works **in-memory** or using **Redis** to aggregate values.
+**Heelflip** is a JSON aggregator library for Java. It's well-known that aggregation processes are useful but very expensive to calculate. Instead of calculating aggregations over JSON files into a relational database or even NoSQL database, we provide a library that performs this task for you. Heelflip works **in-memory** or using **Redis** to aggregate values.
 
 ## Maven
 Heelflip is available at the Central Maven Repository:
@@ -96,7 +96,7 @@ Each JSON field has its own directory, for instance, `name`, `author` etc. This 
 Finally, the root directory contains a file `__missingGroupBy.json` with a list of missing group by combination.
 
 ### How to scale?
-Creating `JsonAgg` with the default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise a `OutOfMemoryError`. To avoid this, we provide an alternative to process aggregations in Redis instead of in-memory. See code below:
+Creating `JsonAgg` with the default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise a `OutOfMemoryError`. To avoid this, we provide a Redis based alternative to the in-memory based process aggregations. See code below:
 
 ```java
 JedisPool pool = new JedisPool(new JedisPoolConfig(), "localhost");
@@ -107,7 +107,7 @@ try (Jedis jedis = pool.getResource()) {
 ```
 
 ### How aggregation works over non-flat JSON
-There is no problem if you have JSONs with arrays or nested objects. What Heelflip does is to calculate aggregations over fields and their values. But the Heelflip API is based on field names and so, we need to rename JSON fields when arrays or objects appear.
+There is no problem if you have JSONs with arrays or nested objects. What Heelflip does is calculate aggregations over fields and their values. However, Heelflip API is based on field names so we need to rename JSON fields when arrays or objects appear.
 
 For instance, the following JSON entry:
 ```javascript
@@ -132,4 +132,4 @@ will be read as:
 { "city" : "SPRINGFIELD", "loc_0" : -72.577769, "loc_1": 42.128848, "pop" : 22115}
 ```
 
-**NOTE**: The examples above are only used to ilustrate how to rename field names for objects and arrays to generate unique names at aggregation time. It is important to understand that we do not flatten the JSON.
+**NOTE**: The examples above are only used to ilustrate how to rename field names for objects and arrays in order to generate unique names at aggregation time. It is important to understand that we do not flatten the JSON.
