@@ -119,7 +119,7 @@ will be read as:
 ```
 To retrieve the information about the field "city" we need to concatenate the field names as shown below:
 ```java
-FieldAgg cityAgg = agg.getFieldAgg("address.city");
+IFieldAgg cityAgg = agg.getFieldAgg("address.city");
 cityAgg.count();
 ```
 
