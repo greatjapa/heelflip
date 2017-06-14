@@ -7,7 +7,7 @@
     <version>1.4-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>An in-memory JSON aggregator in Java</description>
+    <description>JSON aggregator in Java</description>
     <url>https://github.com/greatjapa/heelflip</url>
 
     <licenses>
@@ -108,7 +108,7 @@
                 <artifactId>maven-gpg-plugin</artifactId>
 		<version>1.5</version>
 	   	   <configuration>
-                     <skip>true</skip>
+                     <skip>false</skip>
                    </configuration>
                 <executions>
                     <execution>
