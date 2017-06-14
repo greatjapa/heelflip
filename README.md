@@ -12,7 +12,7 @@ Heelflip is available at the Central Maven Repository:
 <dependency>
     <groupId>com.github.greatjapa</groupId>
     <artifactId>heelflip</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
 </dependency>
 ```
 
