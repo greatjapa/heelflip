@@ -35,7 +35,7 @@ try(InputStream stream = new FileInputStream("bookstore.json")){
 ```
 ### Global Aggregations
 
-Once you have a JsonAgg object you can get global aggregations (min, max and sum) as follows:
+Once you have a `JsonAgg` object you can get global aggregations (min, max and sum) as follows:
 ```java
 IFieldAgg priceAgg = jsonAgg.getFieldAgg("price");
 popAgg.getMin(); // 3.07
@@ -97,7 +97,7 @@ Each JSON field has its own directory, for instance, `name`, `author` etc. This 
 Finally, the root directory contains a file `__missingGroupBy.json` with a list of missing group by combination.
 
 ### How to scale?
-Creating `JsonAgg` with the default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise a `OutOfMemoryError`. To avoid this, we provide a Redis based alternative to the in-memory based process aggregations. See code below:
+Creating `JsonAgg` with the default constructor means that you will aggregate JSON files in-memory. If you try to load several JSONs, the JVM may raise an `OutOfMemoryError`. To avoid this kind of error, we provide a Redis based alternative to the in-memory based process aggregations. See code below:
 
 ```java
 JedisPool pool = new JedisPool(new JedisPoolConfig(), "localhost");
