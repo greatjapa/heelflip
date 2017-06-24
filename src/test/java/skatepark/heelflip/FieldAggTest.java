@@ -43,9 +43,9 @@ public class FieldAggTest {
             Assert.assertEquals(0, fieldAgg.getStringCount());
             Assert.assertEquals(0, fieldAgg.getBooleanCount());
             Assert.assertEquals(4, fieldAgg.getNumberCount());
-            Assert.assertEquals(2.0, fieldAgg.getMin().doubleValue(), 10E10);
-            Assert.assertEquals(2.3, fieldAgg.getMax().doubleValue(), 10E10);
-            Assert.assertEquals(8.4, fieldAgg.getSum().doubleValue(), 10E10);
+            Assert.assertEquals(2.0, fieldAgg.getMin().doubleValue(), 10E-10);
+            Assert.assertEquals(2.3, fieldAgg.getMax().doubleValue(), 10E-10);
+            Assert.assertEquals(8.4, fieldAgg.getSum().doubleValue(), 10E-10);
 
             Assert.assertEquals(4, fieldAgg.count());
             Assert.assertEquals(1, fieldAgg.count("2.3"));
@@ -181,9 +181,9 @@ public class FieldAggTest {
             Assert.assertEquals(5, fieldAgg.getStringCount());
             Assert.assertEquals(0, fieldAgg.getBooleanCount());
             Assert.assertEquals(3, fieldAgg.getNumberCount());
-            Assert.assertEquals(1.2, fieldAgg.getMin().doubleValue(), 10E10);
+            Assert.assertEquals(1.2, fieldAgg.getMin().doubleValue(), 10E-10);
             Assert.assertEquals(15, fieldAgg.getMax().longValue());
-            Assert.assertEquals(26.2, fieldAgg.getSum().doubleValue(), 10E10);
+            Assert.assertEquals(26.2, fieldAgg.getSum().doubleValue(), 10E-10);
 
             Assert.assertEquals(8, fieldAgg.count());
             Assert.assertEquals(1, fieldAgg.count("foo"));
