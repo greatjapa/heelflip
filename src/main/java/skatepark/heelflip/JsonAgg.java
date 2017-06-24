@@ -139,8 +139,6 @@ public class JsonAgg {
         Objects.requireNonNull(stream, "stream should not be null.");
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
-            JsonParser parser = new JsonParser();
-
             reader.lines()
                     .map(line -> parser.parse(line))
                     .map(elem -> elem.getAsJsonObject())
@@ -158,7 +156,7 @@ public class JsonAgg {
         Objects.requireNonNull(stream, "stream should not be null.");
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
-            JsonElement result = new JsonParser().parse(reader);
+            JsonElement result = parser.parse(reader);
             if (!result.isJsonArray()) {
                 throw new IllegalArgumentException("result is not a JSON array.");
             }
