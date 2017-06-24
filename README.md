@@ -94,6 +94,61 @@ Each JSON field has its own directory, for instance, `name`, `author` etc. This 
 1. `__<field_name>.json` file with field global aggregations;
 2. All combinations of group by aggregations separated in different files in this format `<field_name>_groupBy_<field_name>.json`.
 
+Here is an example of dump result for the field author (file `__author.json`):
+```javascript
+{
+  "fieldName": "author",
+  "count": 4,
+  "cardinality": 4,
+  "string": 4,
+  "boolean": 0,
+  "number": 0,
+  "values": [
+    "Homer",
+    "Mario Puzo",
+    "Herman Melville",
+    "Austen"
+  ]
+}
+```
+The group by files have the following structure (file `author_groupBy_genre.json`):
+```javascript
+{
+  "groupBy": "genre",
+  "fieldName": "author",
+  "values": [
+    {
+      "poem": {
+        "fieldName": "author",
+        "count": 1,
+        "cardinality": 1,
+        "string": 1,
+        "boolean": 0,
+        "number": 0,
+        "values": [
+          "Homer"
+        ]
+      }
+    },
+    {
+      "novel": {
+        "fieldName": "author",
+        "count": 3,
+        "cardinality": 3,
+        "string": 3,
+        "boolean": 0,
+        "number": 0,
+        "values": [
+          "Mario Puzo",
+          "Herman Melville",
+          "Austen"
+        ]
+      }
+    }
+  ]
+}
+```
+
 Finally, the root directory contains a file `__missingGroupBy.json` with a list of missing group by combination.
 
 ### How to scale?
